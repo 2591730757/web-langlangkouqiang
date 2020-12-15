@@ -1,0 +1,574 @@
+@charset "UTF-8";
+@import 'sassConfig';
+
+//幻灯片***********************************************************************************
+
+//可视盒子
+#slide-wrap{
+    overflow:hidden;
+    position:relative;
+    &:hover{ .slide-prey,.slide-next{ display:block; } }
+}
+
+//滑动对象
+.slide-content{
+    //CSS3
+    //添加过渡效果(0s开始时间)
+    @include webkit(transition,all 1s ease 0s);
+    left:0;
+    position:relative;
+    li{ float:left; }
+    // 按宽度比例显示图片，转换块级元素去除白底边
+    img{
+        display:block;
+        width:100%;
+    }
+}
+
+//小白点
+.slide-nav{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:15px;
+    z-index:11;
+    text-align:center;
+    font-size:0;
+    a{
+        display:inline-block;
+        width:8px;
+        height:3px;
+        margin:0 3px;
+        background-color:#ffffff;
+        opacity:.5;
+        //兼容ie的不透明度设置
+        filter:alpha(opacity=50);
+        &.current{
+            opacity:1;
+            filter:alpha(opacity=100);
+        }
+    }
+}
+
+//左右按钮
+.slide-prey,.slide-next{
+    display:none;
+    position:absolute;
+    top:50%;
+    width:41px;
+    height:69px;
+    margin-top:-34.5px;
+    background-color:#fff;
+    opacity:1;
+    //兼容ie的不透明度设置
+    filter:alpha(opacity=50);
+    line-height:69px;
+    text-align:center;
+    cursor:pointer;
+    .iconfont{ font-size:24px; }
+}
+.slide-prey{ left:20px; }
+.slide-next{ right:20px; }
+
+//内容区**********************************************************************************
+
+//图文列表
+.info-list{
+    padding:0 45px;
+    ul{ @extend %clearfix; }
+    figure{
+        float:left;
+        width:33.33333%;
+        padding:0 25px;
+        //CSS3
+        //合并盒子和边框的大小
+        @include webkit(box-sizing,border-box);
+        
+    }
+    img{ width:100%; }
+    figcaption{
+        margin-bottom:11px;
+        padding:24px 0 10px;
+        font-size:18px;
+        border-bottom:1px solid #d9d9d9;
+    }
+    p{
+        line-height:22px;
+        color:$text-gray;
+    }
+    //清除a标签样式和颜色
+    a{ text-decoration:none;color:$text-main; }
+}
+//查看更多
+.more-link{
+    display:block;
+    width:108px;
+    height:35px;
+    border:1px solid #e8e8e8;
+    border-radius:37px;
+    line-height:37px;
+    text-align:center;
+    margin:55px auto 90px;
+    //CSS3
+    //添加过渡效果(0s开始时间)
+    @include webkit(transition,all .5s ease 0s);
+    &:hover{
+        color:#fff;
+        border-color:$color-main;
+        background-color:$color-main;
+    }
+}
+
+//朗朗公益
+.welfare{
+    margin-bottom:90px;
+    header{ background-color:#efefef; }
+}
+//弹性容器布局**********************************************************************************
+//内容区
+.welfare-wrap{
+    //转换为弹性布局
+    display:flex;
+    height:570px;
+    // 设置等份(此处三个row各占一等份则将父元素一分为三)
+    .row{ flex:1; }
+    //css选择器选择最后一个元素
+    .row:last-child{
+        //设置弹性子元素的排列方式，值小的排在前面，可以为负值
+        .content-flex-big{ order:2; }
+        .content-flex-small{ order:1; }
+    }
+    .content-flex{
+        display:flex;
+        height:100%;
+        flex-direction:column;
+    }
+    //img标签默认vertical-align 属性设置元素的垂直对齐方式。
+    //去除img标签白底边
+    img{ display:block; }
+
+    .content-flex-big{ flex:2; }
+    .content-flex-small{ flex:1; }
+
+    .content-big{ height:380px; }
+    .content-small{ height:190px; }
+    .content-dec{
+            padding:42px 48px 0 40px;
+            .title{
+                font-size:24px;
+            }
+            time{
+                display:block;
+                padding:14px 0 20px;
+                //不透明度&IE兼容
+                opacity:.5;
+                filter:alpha(opacity=50);
+            }
+            .line{
+                display:block;
+                width:38px;
+                border-top:1px solid #cccccc;
+            }
+            .dec{
+                margin-top:33px;
+                line-height:24px;
+            }
+            .more{ margin-top:16px; }
+    }
+    .color-white{
+        .title,time,.dec,.more{ color:#ffffff; }
+        .more{ border-color:#ffffff; }
+    }
+}
+
+//医生模块
+.docter{
+    padding:90px 0;
+    background-color:#f6f6f6;
+    .img{
+        float:left;
+        position:relative;
+    }
+    .content{ margin-left:565px; 
+    }
+    .swiper-pagination{
+        left:0;
+        right:0;
+        top:45px;
+        span{ margin:0 2px; }
+        .swiper-pagination-bullet{
+            width:8px;
+            height:3px;
+            background-color:#a0a0a0;
+            border-radius:0;
+            opacity:1;
+            filter:alpha(opacity=100);
+        }
+        .swiper-pagination-bullet-active{ background-color:#000;}
+    }
+}
+.docter-info{
+    .name{
+        position:absolute;
+        top:50%;
+        margin-top:-24px;
+        padding:0 28px;
+        right:0;
+        height:48px;
+        line-height:48px;
+        background-color:rgba(0,0,0,.2);
+        color:#fff;
+        font-size:18px;
+    }
+    .title{
+        padding-top:13px;
+        font-size:18px;
+    }
+    .txt{
+        display:block;
+        padding:12px 0 19px;
+        color:$text-gray;
+    }
+    .line{
+        display:block;
+        width:38px;
+        border-top:1px solid #c5c5c5;
+    }
+    .dec{
+        padding-top:26px;
+        padding-bottom:22px;
+        line-height:21px;
+        color:$text-gray;
+    }
+    .link-more{
+        border:none;
+        color:$text-main;
+        font-weight:bold;
+    }
+}
+
+//news.php
+.news-list{
+    .item{
+        margin-bottom:40px;
+        padding-bottom:40px;
+        border-bottom:1px solid #f1f1f1;
+    }
+}
+
+//合作伙伴
+.partner-list{
+    .item{
+        margin:0 20px 80px 20px;
+        opacity:.7;
+        filter:alpha(opacity=70);
+        @include webkit(transition,all .3s ease 0s);
+        &:hover{
+            opacity:1;
+            filter:alpha(opacity=100);
+        }
+    }
+    .img{
+        display:block;
+        border-radius:8px;
+        box-shadow:0 0 11px 0 rgba(0,0,0,.2);
+    }
+    img{ border-radius:8px; }
+    figcaption{
+        padding-top:33px;
+        text-align:center;
+        @include ell(1);
+    }
+}
+
+//门诊列表
+.shop-wrap{
+    .item{
+        position:relative;
+        background-color:#fff;
+        margin-bottom:80px;
+        @extend %clearfix;
+    }
+    .item:last-child{
+        margin-bottom:0;
+        .content:after{ display:none; }
+    }
+    .item:nth-child(2n){
+        .img-wrap,
+        .content{ float:right; }
+        .shop-logo{ left:0; }
+    }
+    .img-wrap,
+    .content{
+        float:left;
+        width:50%;
+    }
+    .content{
+        padding:48px 30px 0;
+        @include webkit(box-sizing,border-box);
+        &:after{
+            content:'';
+            position:absolute;
+            width:60px;
+            border-bottom:1px solid #ddd;
+            left:50%;
+            margin-left:-30px;
+            bottom:-40px;
+        }
+    }
+    .img-wrap{
+        position:relative;
+        .shop-logo{
+            display:block;
+            position:absolute;
+            width:140px;
+            height:68px;
+            background-color:#fff;
+            top:50%;
+            right:0;
+            margin-top:-34px;
+        }
+    }
+    .title{ margin-bottom:18px; }
+    .dec{
+        margin-bottom:18px;
+        @include ell(1);
+    }
+}
+
+//公益活动
+.public-welfare{
+    @extend .shop-wrap;
+    .item{
+        background-color:transparent;
+        margin-bottom:100px;
+        &:nth-child(2n){
+            .content{
+                left:0;
+                right:auto;
+            }
+        }
+    }
+    .content{
+        position:absolute;
+        width:-webkit-calc(50% + 53px);
+        padding-left:50px;
+        padding-right:50px;
+        top:73px;
+        right:0;
+        bottom:0;
+        background-color:#fff;
+        &:after{ display:none; }
+        .line{
+            display:block;
+            width:50px;
+            border-top:1px solid $color-main;
+        }
+    }
+    .dec{
+        padding-top:20px;
+        font-size:14px;
+        line-height:30px;
+        @include ell(3);
+    }
+}
+
+//百度地图
+.baidu-map{
+    width:100%;
+    height:400px;
+    margin:80px 0 100px;
+}
+.content-wrap{
+    @extend %clearfix;
+    .info{
+        float:left;
+        width:400px;
+        padding:37px 0;
+        background-color:#f9f9f9;
+        text-align:center;
+    }
+    .title{
+        margin-bottom:29px;
+        font-size:24px;
+    }
+    .telphone{
+        display:inline-block;
+        padding:0 25px;
+        margin:10px 0 29px;
+        background-color:$color-main;
+        color:#fff;
+        line-height:44px;
+        font-size:18px;
+        border-radius:44px;
+    }
+    span{ display:block; }
+    p{
+        margin-bottom:20px;
+        line-height:20px;
+        &:last-child{ margin-bottom:0;}
+    }
+    strong{
+        color:$color-main;
+        font-weight:bold;
+    }
+}
+.message-form{
+    margin-left:500px;
+    .title{
+        line-height:85px;
+        font-size:18px;
+        text-align:center;
+        border-top:1px solid #e3e3e3;
+    }
+    .input-item{
+        margin-bottom:26px;
+        border-bottom:1px solid #e3e3e3;
+    }
+    input,
+    textarea{
+        width:100%;
+        border:none;
+        padding:12px 13px;
+        font-size:14px;
+        @include webkit(box-sizing,border-box);
+    }
+    //修改提示信息颜色
+    input::-webkit-input-placeholder{color:#a0a0a0;};
+    input::-moz-placeholder{color:#a0a0a0;};
+    input::-ms-input-placeholder{color:#a0a0a0;};
+    button[type=button]{
+        width:115px;
+        background-color:#000;
+        color:#fff;
+        line-height:40px;
+        font-size:16px;
+        border:none;
+    }
+    textarea{height:112px;}
+}
+.jobs-banner{
+    padding:108px 0 116px;
+    margin:100px 0;
+    background:url(../images/jobs-bg.jpg) no-repeat center;
+    background-size:cover;
+    color:#fff;
+    text-align:center;
+    h4{
+        margin-bottom:29px;
+        font-size:55px;
+    }
+    p{
+        margin-bottom:14px;
+        font-size:24px;
+    }
+    span{
+        font-size:14px;
+        text-transform: uppercase;
+    }
+}
+.jobs-list{
+    header{
+        position: relative;
+        padding:0 30px;
+        background-color: #f9f9f9;
+        border:1px solid #ebebeb;
+        color:#a0a0a0;
+        font-size:14px;
+        line-height:43px;
+        span{padding-right:60px;}
+        strong{
+            color:#000;
+            font-weight: bold;
+        }
+        &:after{
+            position: absolute;
+            content:'+';
+            right:15px;
+            color:black;
+            font-size:24px;
+        }
+    }
+    section{margin-bottom:10px;}
+    section:last-child{margin-bottom:0;}
+    .show{
+        .content{display:block;}
+        header:after{content:'-';}
+    }
+    .content{
+        display:none;
+        padding:23px 32px;
+        line-height:30px;
+        color:#7c7c7c;
+    }
+    .button{
+        display:block;
+        margin:19px 0 8px;
+        width:90px;
+        line-height:32px;
+        color:#fff;
+        background-color: $color-main;
+        border-radius: 32px;
+        text-align:center;
+    }
+    .info{
+        a{color:black;}
+        span{margin-right:44px;}
+    }
+    .mark{
+        position: absolute;
+        top:0;
+        right:0;
+        bottom:0;
+        left:0;
+        z-index:10;
+        cursor:pointer;
+    }
+}
+
+//newsDetailed
+#article-content{
+    position:relative;
+    padding:0 85px;
+    header{
+        padding:83px 0 30px;
+        border-bottom:1px solid #ececec;
+        text-align:center;
+        .title{
+            margin-bottom:19px;
+            font-size:30px;
+        }
+        span{
+            margin:0 9px;
+            color:$text-gray;
+        }
+    }
+    section{
+        p{
+            padding:18px 0;
+            font-size:15px;
+            color:#010101;
+            line-height:35px;
+            text-indent:2em;
+        }
+        img{max-width:100%;}
+    }
+    footer{
+        padding-top:74px;
+        .more{
+            margin:65px auto 73px;
+            border-color:#e2e2e2;
+            line-height:29px;
+            color:$text-gray;
+        }
+    }
+}
+.related{
+    display:flex;
+    border-top:1px solid #ececec;
+    border-bottom:1px solid #ececec;
+    line-height:38px;
+    li{
+        flex:1;
+    }
+}
